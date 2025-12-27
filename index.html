@@ -153,7 +153,6 @@
     <div id="dashboard" class="page active container">
         <h2>Dashboard Admin</h2>
         <p>Selamat datang di SIPABALI. Pilih menu di atas untuk navigasi.</p>
-        <p>Tampilan ini sederhana dan ramah untuk kader posyandu.</p>
     </div>
     
     <div id="daftarBalita" class="page container">
@@ -273,6 +272,8 @@
     </div>
     
     <script>
+        let growthChart; // Variabel global untuk menyimpan referensi chart
+
         function showPage(pageId) {
             // Sembunyikan semua halaman
             const pages = document.querySelectorAll('.page');
@@ -340,11 +341,17 @@
             
             // Grafik sederhana menggunakan Chart.js
             const ctx = document.getElementById('growthChart').getContext('2d');
+            
+            // Destroy chart yang ada jika sudah ada, agar bisa diklik berulang tanpa refresh
+            if (growthChart) {
+                growthChart.destroy();
+            }
+            
             const labels = anak.riwayat.map(item => item.tanggal);
             const beratData = anak.riwayat.map(item => item.berat);
             const tinggiData = anak.riwayat.map(item => item.tinggi);
             
-            new Chart(ctx, {
+            growthChart = new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: labels,
