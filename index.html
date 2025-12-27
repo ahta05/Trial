@@ -43,23 +43,43 @@
         h2 {
             color: #4CAF50;
         }
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+        .search-bar {
+            margin-bottom: 20px;
         }
-        input, select, button {
+        .search-bar input {
+            width: 100%;
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            cursor: pointer;
+        .balita-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
-        button:hover {
-            background-color: #388E3C;
+        .balita-card {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .balita-card:hover {
+            background-color: #e8f5e8;
+        }
+        .balita-card h3 {
+            margin: 0;
+            color: #4CAF50;
+        }
+        .balita-card p {
+            margin: 5px 0;
+        }
+        .detail-section {
+            margin-top: 20px;
+        }
+        .detail-section h3 {
+            color: #4CAF50;
         }
         table {
             width: 100%;
@@ -73,6 +93,32 @@
         }
         th {
             background-color: #f2f2f2;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #388E3C;
+        }
+        .chart-container {
+            margin-top: 20px;
+            height: 300px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        input, select {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
         }
         .notification {
             display: none;
@@ -90,6 +136,8 @@
             display: block;
         }
     </style>
+    <!-- Tambahkan Chart.js untuk grafik sederhana -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <header>
@@ -98,7 +146,7 @@
     </header>
     <nav>
         <a href="#" onclick="showPage('dashboard')">Dashboard</a>
-        <a href="#" onclick="showPage('input')">Input Penimbangan</a>
+        <a href="#" onclick="showPage('daftarBalita')">Daftar Balita</a>
         <a href="#" onclick="showPage('data')">Data Anak</a>
     </nav>
     
@@ -108,16 +156,67 @@
         <p>Tampilan ini sederhana dan ramah untuk kader posyandu.</p>
     </div>
     
-    <div id="input" class="page container">
-        <h2>Input Penimbangan</h2>
-        <form id="penimbanganForm">
-            <label for="namaAnak">Nama Anak:</label>
-            <select id="namaAnak" required>
-                <option value="">Pilih Nama Anak</option>
-                <option value="Anak 1">Anak 1</option>
-                <option value="Anak 2">Anak 2</option>
-                <option value="Anak 3">Anak 3</option>
-            </select>
+    <div id="daftarBalita" class="page container">
+        <h2>Daftar Balita</h2>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Cari nama anak..." onkeyup="filterBalita()">
+        </div>
+        <div class="balita-list" id="balitaList">
+            <!-- Data dummy anak -->
+            <div class="balita-card" onclick="showDetail('Anak 1')">
+                <h3>Anak 1</h3>
+                <p>Umur: 3 tahun | Jenis Kelamin: Laki-laki</p>
+            </div>
+            <div class="balita-card" onclick="showDetail('Anak 2')">
+                <h3>Anak 2</h3>
+                <p>Umur: 2 tahun | Jenis Kelamin: Perempuan</p>
+            </div>
+            <div class="balita-card" onclick="showDetail('Anak 3')">
+                <h3>Anak 3</h3>
+                <p>Umur: 1 tahun | Jenis Kelamin: Laki-laki</p>
+            </div>
+            <!-- Tambahkan lebih banyak jika perlu -->
+        </div>
+    </div>
+    
+    <div id="detailBalita" class="page container">
+        <h2 id="detailTitle">Detail Balita</h2>
+        <div class="detail-section">
+            <h3>Biodata Singkat</h3>
+            <p id="biodata">Nama: Anak 1<br>Umur: 3 tahun<br>Jenis Kelamin: Laki-laki</p>
+        </div>
+        <div class="detail-section">
+            <h3>Riwayat Data Perkembangan</h3>
+            <table id="riwayatTable">
+                <thead>
+                    <tr>
+                        <th>Tanggal Posyandu</th>
+                        <th>Berat Badan (kg)</th>
+                        <th>Tinggi Badan (cm)</th>
+                        <th>Lingkar Kepala (cm)</th>
+                        <th>Status Gizi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data dummy riwayat, akan diisi berdasarkan anak -->
+                </tbody>
+            </table>
+        </div>
+        <div class="detail-section">
+            <h3>Grafik Perkembangan</h3>
+            <div class="chart-container">
+                <canvas id="growthChart"></canvas>
+            </div>
+        </div>
+        <button onclick="showPage('inputPerkembangan')">Tambah Data Perkembangan</button>
+        <button onclick="showPage('daftarBalita')">Kembali ke Daftar Balita</button>
+    </div>
+    
+    <div id="inputPerkembangan" class="page container">
+        <h2>Tambah Data Perkembangan</h2>
+        <form id="perkembanganForm">
+            <label for="tanggal">Tanggal Posyandu:</label>
+            <input type="date" id="tanggal" required>
             
             <label for="berat">Berat Badan (kg):</label>
             <input type="number" id="berat" step="0.1" required>
@@ -125,9 +224,21 @@
             <label for="tinggi">Tinggi Badan (cm):</label>
             <input type="number" id="tinggi" step="0.1" required>
             
+            <label for="lingkarKepala">Lingkar Kepala (cm):</label>
+            <input type="number" id="lingkarKepala" step="0.1" required>
+            
+            <label for="statusGizi">Status Gizi:</label>
+            <select id="statusGizi" required>
+                <option value="">Pilih Status</option>
+                <option value="Normal">Normal</option>
+                <option value="Kurang">Kurang</option>
+                <option value="Lebih">Lebih</option>
+            </select>
+            
             <button type="submit">Simpan</button>
         </form>
         <div id="notification" class="notification">Data berhasil disimpan</div>
+        <button onclick="showPage('detailBalita')">Kembali ke Detail Balita</button>
     </div>
     
     <div id="data" class="page container">
@@ -171,8 +282,98 @@
             document.getElementById(pageId).classList.add('active');
         }
         
+        function filterBalita() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.balita-card');
+            cards.forEach(card => {
+                const name = card.querySelector('h3').textContent.toLowerCase();
+                if (name.includes(input)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+        
+        function showDetail(namaAnak) {
+            // Data dummy per anak
+            const dataAnak = {
+                'Anak 1': {
+                    biodata: 'Nama: Anak 1<br>Umur: 3 tahun<br>Jenis Kelamin: Laki-laki',
+                    riwayat: [
+                        { tanggal: '2023-01-01', berat: 12.5, tinggi: 90, lingkar: 45, status: 'Normal' },
+                        { tanggal: '2023-02-01', berat: 13.0, tinggi: 92, lingkar: 46, status: 'Normal' },
+                        { tanggal: '2023-03-01', berat: 13.5, tinggi: 95, lingkar: 47, status: 'Normal' }
+                    ]
+                },
+                'Anak 2': {
+                    biodata: 'Nama: Anak 2<br>Umur: 2 tahun<br>Jenis Kelamin: Perempuan',
+                    riwayat: [
+                        { tanggal: '2023-01-01', berat: 10.5, tinggi: 80, lingkar: 42, status: 'Kurang' },
+                        { tanggal: '2023-02-01', berat: 11.0, tinggi: 82, lingkar: 43, status: 'Normal' }
+                    ]
+                },
+                'Anak 3': {
+                    biodata: 'Nama: Anak 3<br>Umur: 1 tahun<br>Jenis Kelamin: Laki-laki',
+                    riwayat: [
+                        { tanggal: '2023-01-01', berat: 8.5, tinggi: 70, lingkar: 40, status: 'Normal' }
+                    ]
+                }
+            };
+            
+            const anak = dataAnak[namaAnak];
+            document.getElementById('detailTitle').textContent = `Detail ${namaAnak}`;
+            document.getElementById('biodata').innerHTML = anak.biodata;
+            
+            const tbody = document.querySelector('#riwayatTable tbody');
+            tbody.innerHTML = '';
+            anak.riwayat.forEach(item => {
+                const row = `<tr>
+                    <td>${item.tanggal}</td>
+                    <td>${item.berat}</td>
+                    <td>${item.tinggi}</td>
+                    <td>${item.lingkar}</td>
+                    <td>${item.status}</td>
+                </tr>`;
+                tbody.innerHTML += row;
+            });
+            
+            // Grafik sederhana menggunakan Chart.js
+            const ctx = document.getElementById('growthChart').getContext('2d');
+            const labels = anak.riwayat.map(item => item.tanggal);
+            const beratData = anak.riwayat.map(item => item.berat);
+            const tinggiData = anak.riwayat.map(item => item.tinggi);
+            
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Berat Badan (kg)',
+                            data: beratData,
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        },
+                        {
+                            label: 'Tinggi Badan (cm)',
+                            data: tinggiData,
+                            borderColor: 'rgba(153, 102, 255, 1)',
+                            backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                }
+            });
+            
+            showPage('detailBalita');
+        }
+        
         // Handle form submit untuk notifikasi
-        document.getElementById('penimbanganForm').addEventListener('submit', function(event) {
+        document.getElementById('perkembanganForm').addEventListener('submit', function(event) {
             event.preventDefault();
             const notification = document.getElementById('notification');
             notification.style.display = 'block';
@@ -182,4 +383,4 @@
         });
     </script>
 </body>
-  </html>
+</html>
