@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIPABALI - Mockup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ff; /* Biru muda lembut */
+            color: #333;
+        }
+        header {
+            background-color: #4CAF50; /* Hijau khas kesehatan */
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        nav {
+            background-color: #e8f5e8;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        nav a:hover {
+            color: #388E3C;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #4CAF50;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        input, select, button {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #388E3C;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .notification {
+            display: none;
+            background-color: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border: 1px solid #c3e6cb;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+        .page {
+            display: none;
+        }
+        .active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>SIPABALI (Sistem Pendataan Bayi dan Balita Posyandu Berbasis Digital)</h1>
+        <p>Mockup Tampilan - Prototype UI</p>
+    </header>
+    <nav>
+        <a href="#" onclick="showPage('dashboard')">Dashboard</a>
+        <a href="#" onclick="showPage('input')">Input Penimbangan</a>
+        <a href="#" onclick="showPage('data')">Data Anak</a>
+    </nav>
+    
+    <div id="dashboard" class="page active container">
+        <h2>Dashboard Admin</h2>
+        <p>Selamat datang di SIPABALI. Pilih menu di atas untuk navigasi.</p>
+        <p>Tampilan ini sederhana dan ramah untuk kader posyandu.</p>
+    </div>
+    
+    <div id="input" class="page container">
+        <h2>Input Penimbangan</h2>
+        <form id="penimbanganForm">
+            <label for="namaAnak">Nama Anak:</label>
+            <select id="namaAnak" required>
+                <option value="">Pilih Nama Anak</option>
+                <option value="Anak 1">Anak 1</option>
+                <option value="Anak 2">Anak 2</option>
+                <option value="Anak 3">Anak 3</option>
+            </select>
+            
+            <label for="berat">Berat Badan (kg):</label>
+            <input type="number" id="berat" step="0.1" required>
+            
+            <label for="tinggi">Tinggi Badan (cm):</label>
+            <input type="number" id="tinggi" step="0.1" required>
+            
+            <button type="submit">Simpan</button>
+        </form>
+        <div id="notification" class="notification">Data berhasil disimpan</div>
+    </div>
+    
+    <div id="data" class="page container">
+        <h2>Data Anak</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nama Anak</th>
+                    <th>Tanggal Lahir</th>
+                    <th>Nama Ibu</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Anak 1</td>
+                    <td>01-01-2020</td>
+                    <td>Ibu 1</td>
+                </tr>
+                <tr>
+                    <td>Anak 2</td>
+                    <td>02-02-2021</td>
+                    <td>Ibu 2</td>
+                </tr>
+                <tr>
+                    <td>Anak 3</td>
+                    <td>03-03-2022</td>
+                    <td>Ibu 3</td>
+                </tr>
+            </tbody>
+        </table>
+        <button style="margin-top: 10px;">Tambah Anak</button> <!-- Hanya tampilan, tidak ada fungsi -->
+    </div>
+    
+    <script>
+        function showPage(pageId) {
+            // Sembunyikan semua halaman
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Tampilkan halaman yang dipilih
+            document.getElementById(pageId).classList.add('active');
+        }
+        
+        // Handle form submit untuk notifikasi
+        document.getElementById('penimbanganForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const notification = document.getElementById('notification');
+            notification.style.display = 'block';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000); // Hilang setelah 3 detik
+        });
+    </script>
+</body>
+  </html>
