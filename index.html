@@ -1,393 +1,360 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIPABALI - Mockup</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f8ff; /* Biru muda lembut */
-            color: #333;
-        }
-        header {
-            background-color: #4CAF50; /* Hijau khas kesehatan */
-            color: white;
-            padding: 10px;
-            text-align: center;
-        }
-        nav {
-            background-color: #e8f5e8;
-            padding: 10px;
-            border-bottom: 1px solid #ccc;
-        }
-        nav a {
-            margin: 0 15px;
-            text-decoration: none;
-            color: #4CAF50;
-            font-weight: bold;
-        }
-        nav a:hover {
-            color: #388E3C;
-        }
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        h2 {
-            color: #4CAF50;
-        }
-        .search-bar {
-            margin-bottom: 20px;
-        }
-        .search-bar input {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        .balita-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .balita-card {
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            background-color: #f9f9f9;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .balita-card:hover {
-            background-color: #e8f5e8;
-        }
-        .balita-card h3 {
-            margin: 0;
-            color: #4CAF50;
-        }
-        .balita-card p {
-            margin: 5px 0;
-        }
-        .detail-section {
-            margin-top: 20px;
-        }
-        .detail-section h3 {
-            color: #4CAF50;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        button:hover {
-            background-color: #388E3C;
-        }
-        .chart-container {
-            margin-top: 20px;
-            height: 300px;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        input, select {
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        .notification {
-            display: none;
-            background-color: #d4edda;
-            color: #155724;
-            padding: 10px;
-            border: 1px solid #c3e6cb;
-            border-radius: 4px;
-            margin-top: 10px;
-        }
-        .page {
-            display: none;
-        }
-        .active {
-            display: block;
-        }
-    </style>
-    <!-- Tambahkan Chart.js untuk grafik sederhana -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
-    <header>
-        <h1>SIPABALI (Sistem Pendataan Bayi dan Balita Posyandu Berbasis Digital)</h1>
-        <p>Mockup Tampilan - Prototype UI</p>
-    </header>
-    <nav>
-        <a href="#" onclick="showPage('dashboard')">Dashboard</a>
-        <a href="#" onclick="showPage('daftarBalita')">Daftar Balita</a>
-        <a href="#" onclick="showPage('data')">Data Anak</a>
-    </nav>
+    <title>TrekLog - Logbook PKL TRE</title>
     
-    <div id="dashboard" class="page active container">
-        <h2>Dashboard Admin</h2>
-        <p>Selamat datang di SIPABALI. Pilih menu di atas untuk navigasi.</p>
-    </div>
-    
-    <div id="daftarBalita" class="page container">
-        <h2>Daftar Balita</h2>
-        <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Cari nama anak..." onkeyup="filterBalita()">
-        </div>
-        <div class="balita-list" id="balitaList">
-            <!-- Data dummy anak -->
-            <div class="balita-card" onclick="showDetail('Anak 1')">
-                <h3>Anak 1</h3>
-                <p>Umur: 3 tahun | Jenis Kelamin: Laki-laki</p>
-            </div>
-            <div class="balita-card" onclick="showDetail('Anak 2')">
-                <h3>Anak 2</h3>
-                <p>Umur: 2 tahun | Jenis Kelamin: Perempuan</p>
-            </div>
-            <div class="balita-card" onclick="showDetail('Anak 3')">
-                <h3>Anak 3</h3>
-                <p>Umur: 1 tahun | Jenis Kelamin: Laki-laki</p>
-            </div>
-            <!-- Tambahkan lebih banyak jika perlu -->
-        </div>
-    </div>
-    
-    <div id="detailBalita" class="page container">
-        <h2 id="detailTitle">Detail Balita</h2>
-        <div class="detail-section">
-            <h3>Biodata Singkat</h3>
-            <p id="biodata">Nama: Anak 1<br>Umur: 3 tahun<br>Jenis Kelamin: Laki-laki</p>
-        </div>
-        <div class="detail-section">
-            <h3>Riwayat Data Perkembangan</h3>
-            <table id="riwayatTable">
-                <thead>
-                    <tr>
-                        <th>Tanggal Posyandu</th>
-                        <th>Berat Badan (kg)</th>
-                        <th>Tinggi Badan (cm)</th>
-                        <th>Lingkar Kepala (cm)</th>
-                        <th>Status Gizi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Data dummy riwayat, akan diisi berdasarkan anak -->
-                </tbody>
-            </table>
-        </div>
-        <div class="detail-section">
-            <h3>Grafik Perkembangan</h3>
-            <div class="chart-container">
-                <canvas id="growthChart"></canvas>
-            </div>
-        </div>
-        <button onclick="showPage('inputPerkembangan')">Tambah Data Perkembangan</button>
-        <button onclick="showPage('daftarBalita')">Kembali ke Daftar Balita</button>
-    </div>
-    
-    <div id="inputPerkembangan" class="page container">
-        <h2>Tambah Data Perkembangan</h2>
-        <form id="perkembanganForm">
-            <label for="tanggal">Tanggal Posyandu:</label>
-            <input type="date" id="tanggal" required>
-            
-            <label for="berat">Berat Badan (kg):</label>
-            <input type="number" id="berat" step="0.1" required>
-            
-            <label for="tinggi">Tinggi Badan (cm):</label>
-            <input type="number" id="tinggi" step="0.1" required>
-            
-            <label for="lingkarKepala">Lingkar Kepala (cm):</label>
-            <input type="number" id="lingkarKepala" step="0.1" required>
-            
-            <label for="statusGizi">Status Gizi:</label>
-            <select id="statusGizi" required>
-                <option value="">Pilih Status</option>
-                <option value="Normal">Normal</option>
-                <option value="Kurang">Kurang</option>
-                <option value="Lebih">Lebih</option>
-            </select>
-            
-            <button type="submit">Simpan</button>
-        </form>
-        <div id="notification" class="notification">Data berhasil disimpan</div>
-        <button onclick="showPage('detailBalita')">Kembali ke Detail Balita</button>
-    </div>
-    
-    <div id="data" class="page container">
-        <h2>Data Anak</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Nama Anak</th>
-                    <th>Tanggal Lahir</th>
-                    <th>Nama Ibu</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Anak 1</td>
-                    <td>01-01-2020</td>
-                    <td>Ibu 1</td>
-                </tr>
-                <tr>
-                    <td>Anak 2</td>
-                    <td>02-02-2021</td>
-                    <td>Ibu 2</td>
-                </tr>
-                <tr>
-                    <td>Anak 3</td>
-                    <td>03-03-2022</td>
-                    <td>Ibu 3</td>
-                </tr>
-            </tbody>
-        </table>
-        <button style="margin-top: 10px;">Tambah Anak</button> <!-- Hanya tampilan, tidak ada fungsi -->
-    </div>
-    
+    <!-- FIREBASE -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
     <script>
-        let growthChart; // Variabel global untuk menyimpan referensi chart
-
-        function showPage(pageId) {
-            // Sembunyikan semua halaman
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(page => page.classList.remove('active'));
-            
-            // Tampilkan halaman yang dipilih
-            document.getElementById(pageId).classList.add('active');
-        }
-        
-        function filterBalita() {
-            const input = document.getElementById('searchInput').value.toLowerCase();
-            const cards = document.querySelectorAll('.balita-card');
-            cards.forEach(card => {
-                const name = card.querySelector('h3').textContent.toLowerCase();
-                if (name.includes(input)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-        
-        function showDetail(namaAnak) {
-            // Data dummy per anak
-            const dataAnak = {
-                'Anak 1': {
-                    biodata: 'Nama: Anak 1<br>Umur: 3 tahun<br>Jenis Kelamin: Laki-laki',
-                    riwayat: [
-                        { tanggal: '2023-01-01', berat: 12.5, tinggi: 90, lingkar: 45, status: 'Normal' },
-                        { tanggal: '2023-02-01', berat: 13.0, tinggi: 92, lingkar: 46, status: 'Normal' },
-                        { tanggal: '2023-03-01', berat: 13.5, tinggi: 95, lingkar: 47, status: 'Normal' }
-                    ]
-                },
-                'Anak 2': {
-                    biodata: 'Nama: Anak 2<br>Umur: 2 tahun<br>Jenis Kelamin: Perempuan',
-                    riwayat: [
-                        { tanggal: '2023-01-01', berat: 10.5, tinggi: 80, lingkar: 42, status: 'Kurang' },
-                        { tanggal: '2023-02-01', berat: 11.0, tinggi: 82, lingkar: 43, status: 'Normal' }
-                    ]
-                },
-                'Anak 3': {
-                    biodata: 'Nama: Anak 3<br>Umur: 1 tahun<br>Jenis Kelamin: Laki-laki',
-                    riwayat: [
-                        { tanggal: '2023-01-01', berat: 8.5, tinggi: 70, lingkar: 40, status: 'Normal' }
-                    ]
-                }
-            };
-            
-            const anak = dataAnak[namaAnak];
-            document.getElementById('detailTitle').textContent = `Detail ${namaAnak}`;
-            document.getElementById('biodata').innerHTML = anak.biodata;
-            
-            const tbody = document.querySelector('#riwayatTable tbody');
-            tbody.innerHTML = '';
-            anak.riwayat.forEach(item => {
-                const row = `<tr>
-                    <td>${item.tanggal}</td>
-                    <td>${item.berat}</td>
-                    <td>${item.tinggi}</td>
-                    <td>${item.lingkar}</td>
-                    <td>${item.status}</td>
-                </tr>`;
-                tbody.innerHTML += row;
-            });
-            
-            // Grafik sederhana menggunakan Chart.js
-            const ctx = document.getElementById('growthChart').getContext('2d');
-            
-            // Destroy chart yang ada jika sudah ada, agar bisa diklik berulang tanpa refresh
-            if (growthChart) {
-                growthChart.destroy();
-            }
-            
-            const labels = anak.riwayat.map(item => item.tanggal);
-            const beratData = anak.riwayat.map(item => item.berat);
-            const tinggiData = anak.riwayat.map(item => item.tinggi);
-            
-            growthChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: 'Berat Badan (kg)',
-                            data: beratData,
-                            borderColor: 'rgba(75, 192, 192, 1)',
-                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        },
-                        {
-                            label: 'Tinggi Badan (cm)',
-                            data: tinggiData,
-                            borderColor: 'rgba(153, 102, 255, 1)',
-                            backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                }
-            });
-            
-            showPage('detailBalita');
-        }
-        
-        // Handle form submit untuk notifikasi
-        document.getElementById('perkembanganForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const notification = document.getElementById('notification');
-            notification.style.display = 'block';
-            setTimeout(() => {
-                notification.style.display = 'none';
-            }, 3000); // Hilang setelah 3 detik
-        });
+        const firebaseConfig = {
+          apiKey: "AIzaSyCikSLTrlrlMnkSu_KbHsHeyK9NQyTniDI",
+          authDomain: "treklog-3d51d.firebaseapp.com",
+          projectId: "treklog-3d51d",
+          storageBucket: "treklog-3d51d.firebasestorage.app",
+          messagingSenderId: "323923997618",
+          appId: "1:323923997618:web:60e4342df24efe3fb32aab"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
     </script>
+
+    <!-- LUCIDE ICONS -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
+    <!-- EMAILJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+    <!-- JSPDF UNTUK EXPORT PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <!-- TAILWIND CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { DEFAULT: '#0F766E', light: '#CCFBF1', dark: '#115E59' },
+                        accent: '#F59E0B',
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="h-full bg-slate-100 dark:bg-slate-950 transition-colors duration-300">
+
+    <!-- ==================== LAYAR AUTH ==================== -->
+    <div id="auth-container" class="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-slate-900 via-blue-950 to-violet-950 p-4">
+        <div class="w-full max-w-sm">
+            <svg viewBox="0 0 200 180" class="w-44 h-40 mx-auto mb-4">
+                <defs><linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient></defs>
+                <rect x="50" y="25" width="100" height="130" rx="12" fill="#1e293b" stroke="url(#grad1)" stroke-width="2.5"/>
+                <rect x="75" y="15" width="50" height="18" rx="6" fill="url(#grad1)"/>
+                <circle cx="100" cy="24" r="4" fill="#0f172a"/>
+                <rect x="65" y="55" width="60" height="5" rx="2.5" fill="#334155"/>
+                <rect x="65" y="68" width="70" height="5" rx="2.5" fill="#334155"/>
+                <rect x="65" y="81" width="50" height="5" rx="2.5" fill="#334155"/>
+                <rect x="65" y="94" width="65" height="5" rx="2.5" fill="#334155"/>
+                <rect x="65" y="107" width="55" height="5" rx="2.5" fill="#334155"/>
+                <rect x="65" y="120" width="40" height="5" rx="2.5" fill="#334155"/>
+                <circle cx="56" cy="57" r="3.5" fill="#10b981"/><circle cx="56" cy="70" r="3.5" fill="#10b981"/><circle cx="56" cy="83" r="3.5" fill="#f59e0b"/><circle cx="56" cy="96" r="3.5" fill="#10b981"/><circle cx="56" cy="109" r="3.5" fill="#10b981"/><circle cx="56" cy="122" r="3.5" fill="#64748b"/>
+                <circle cx="30" cy="40" r="6" fill="#8b5cf6" opacity="0.6"/><circle cx="170" cy="50" r="8" fill="#3b82f6" opacity="0.4"/><circle cx="175" cy="140" r="5" fill="#8b5cf6" opacity="0.5"/>
+                <rect x="160" y="90" width="12" height="12" rx="3" fill="#3b82f6" opacity="0.3" transform="rotate(15 166 96)"/>
+            </svg>
+            <div class="bg-slate-800/80 backdrop-blur-sm p-6 rounded-2xl border border-slate-700/50 shadow-2xl">
+                <h1 class="text-2xl font-bold text-center text-white mb-1">TrekLog</h1>
+                <p class="text-center text-slate-400 text-sm mb-6">Catat jejak praktik kerja lapanganmu</p>
+                
+                <div id="login-form">
+                    <div class="relative mb-3">
+                        <i data-lucide="mail" class="absolute left-3 top-3.5 w-5 h-5 text-slate-400"></i>
+                        <input type="email" id="login-email" placeholder="Email" class="w-full pl-11 pr-4 py-3 rounded-xl bg-slate-700/50 border border-slate-600 text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 transition">
+                    </div>
+                    <div class="relative mb-4">
+                        <i data-lucide="lock" class="absolute left-3 top-3.5 w-5 h-5 text-slate-400"></i>
+                        <input type="password" id="login-password" placeholder="Password" class="w-full pl-11 pr-4 py-3 rounded-xl bg-slate-700/50 border border-slate-600 text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 transition">
+                    </div>
+                    <button onclick="handleLogin()" class="w-full bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-500 hover:to-violet-500 text-white font-semibold py-3 rounded-xl transition shadow-lg shadow-blue-500/20">Masuk</button>
+                    <p class="text-center text-sm text-slate-400 mt-4">Belum punya akun? <span onclick="toggleAuth()" class="text-blue-400 font-semibold cursor-pointer hover:underline">Daftar</span></p>
+                </div>
+
+                <div id="register-form" class="hidden">
+                    <div class="relative mb-3">
+                        <i data-lucide="user" class="absolute left-3 top-3.5 w-5 h-5 text-slate-400"></i>
+                        <input type="text" id="reg-name" placeholder="Nama Lengkap" class="w-full pl-11 pr-4 py-3 rounded-xl bg-slate-700/50 border border-slate-600 text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 transition">
+                    </div>
+                    <div class="relative mb-3">
+                        <i data-lucide="mail" class="absolute left-3 top-3.5 w-5 h-5 text-slate-400"></i>
+                        <input type="email" id="reg-email" placeholder="Email" class="w-full pl-11 pr-4 py-3 rounded-xl bg-slate-700/50 border border-slate-600 text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 transition">
+                    </div>
+                    <div class="relative mb-4">
+                        <i data-lucide="lock" class="absolute left-3 top-3.5 w-5 h-5 text-slate-400"></i>
+                        <input type="password" id="reg-password" placeholder="Password (Min. 6 karakter)" class="w-full pl-11 pr-4 py-3 rounded-xl bg-slate-700/50 border border-slate-600 text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 transition">
+                    </div>
+                    <button onclick="handleRegister()" class="w-full bg-gradient-to-r from-violet-600 to-blue-600 hover:from-violet-500 hover:to-blue-500 text-white font-semibold py-3 rounded-xl transition shadow-lg shadow-violet-500/20">Daftar</button>
+                    <p class="text-center text-sm text-slate-400 mt-4">Sudah punya akun? <span onclick="toggleAuth()" class="text-blue-400 font-semibold cursor-pointer hover:underline">Masuk</span></p>
+                </div>
+                <p id="auth-error" class="text-red-400 text-sm text-center mt-4 hidden"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== APLIKASI UTAMA ==================== -->
+    <div id="app-container" class="max-w-md mx-auto h-full bg-slate-50 dark:bg-slate-900 shadow-2xl flex flex-col relative overflow-hidden hidden">
+        
+        <header class="bg-gradient-to-r from-blue-600 to-violet-600 text-white p-4 flex justify-between items-center z-30 shrink-0 shadow-lg">
+            <h1 class="text-xl font-bold tracking-wide flex items-center gap-2"><i data-lucide="clipboard-list" class="w-6 h-6"></i> TrekLog</h1>
+            <div class="flex items-center gap-1">
+                <button id="btn-dark-mode" class="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-white/20 transition"><i data-lucide="moon" class="w-5 h-5"></i></button>
+                <button id="btn-logout" class="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-white/20 transition" title="Keluar"><i data-lucide="log-out" class="w-5 h-5"></i></button>
+            </div>
+        </header>
+
+        <main class="flex-1 overflow-y-auto pt-4 pb-24 px-4 z-10">
+            
+            <!-- HOME -->
+            <div id="page-home" class="page">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-violet-500 flex items-center justify-center text-white font-bold text-lg shadow-md" id="user-avatar">A</div>
+                    <div>
+                        <p class="text-slate-500 dark:text-slate-400 text-xs">Selamat datang,</p>
+                        <h2 id="user-display-name" class="text-lg font-bold text-slate-800 dark:text-white -mt-0.5">User</h2>
+                    </div>
+                </div>
+                <div class="grid grid-cols-3 gap-3 mb-6">
+                    <div class="bg-white dark:bg-slate-800 p-3 rounded-xl text-center border border-slate-200 dark:border-slate-700 shadow-sm">
+                        <i data-lucide="calendar-days" class="w-5 h-5 mx-auto text-blue-500 mb-1"></i>
+                        <p id="stat-hari" class="text-xl font-bold text-slate-800 dark:text-white">0</p>
+                        <p class="text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wider">Hari</p>
+                    </div>
+                    <div class="bg-white dark:bg-slate-800 p-3 rounded-xl text-center border border-slate-200 dark:border-slate-700 shadow-sm">
+                        <i data-lucide="list-checks" class="w-5 h-5 mx-auto text-violet-500 mb-1"></i>
+                        <p id="stat-kegiatan" class="text-xl font-bold text-slate-800 dark:text-white">0</p>
+                        <p class="text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wider">Kegiatan</p>
+                    </div>
+                    <div class="bg-white dark:bg-slate-800 p-3 rounded-xl text-center border border-slate-200 dark:border-slate-700 shadow-sm">
+                        <i data-lucide="clock" class="w-5 h-5 mx-auto text-amber-500 mb-1"></i>
+                        <p id="stat-waktu" class="text-xl font-bold text-slate-800 dark:text-white">0j</p>
+                        <p class="text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wider">Waktu</p>
+                    </div>
+                </div>
+                <h3 class="font-semibold text-slate-700 dark:text-slate-200 mb-3 text-sm">Menu Cepat</h3>
+                <div class="grid grid-cols-2 gap-3 mb-6">
+                    <button onclick="switchPage('page-input', false)" class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col items-center gap-2 hover:border-blue-400 dark:hover:border-blue-500 transition group">
+                        <div class="w-10 h-10 rounded-lg bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400 group-hover:scale-110 transition"><i data-lucide="plus-circle" class="w-6 h-6"></i></div>
+                        <span class="text-xs font-medium text-slate-600 dark:text-slate-300">Input Baru</span>
+                    </button>
+                    <button onclick="switchPage('page-draft', true)" class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col items-center gap-2 hover:border-amber-400 dark:hover:border-amber-500 transition group">
+                        <div class="w-10 h-10 rounded-lg bg-amber-50 dark:bg-amber-900/30 flex items-center justify-center text-amber-600 dark:text-amber-400 group-hover:scale-110 transition"><i data-lucide="file-text" class="w-6 h-6"></i></div>
+                        <span class="text-xs font-medium text-slate-600 dark:text-slate-300">Lihat Draft</span>
+                    </button>
+                </div>
+                <h3 class="font-semibold text-slate-700 dark:text-slate-200 mb-3 text-sm">Aktivitas Terakhir</h3>
+                <div id="recent-activity-container" class="space-y-3">
+                    <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6 text-center shadow-sm">
+                        <i data-lucide="inbox" class="w-10 h-10 mx-auto text-slate-300 dark:text-slate-600 mb-2"></i>
+                        <p class="text-sm text-slate-400 dark:text-slate-500">Belum ada aktivitas</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- INPUT -->
+            <div id="page-input" class="page hidden">
+              <div class="flex items-center gap-3 mb-5">
+                  <button id="btn-back-input" class="w-9 h-9 flex items-center justify-center rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition"><i data-lucide="arrow-left" class="w-5 h-5"></i></button>
+                  <h2 class="text-lg font-bold text-slate-800 dark:text-white">Input Kegiatan</h2>
+              </div>
+              <form id="form-kegiatan" class="space-y-4">
+                  <div id="kegiatan-list-container"></div>
+                <button type="button" id="btn-tambah-kegiatan" class="w-full border-2 border-dashed border-slate-300 dark:border-slate-600 rounded-xl py-3 text-sm font-medium text-slate-500 dark:text-slate-400 hover:border-blue-400 hover:text-blue-500 transition flex items-center justify-center gap-2">
+                    <i data-lucide="plus-circle" class="w-5 h-5"></i> Tambah Kegiatan Lainnya
+                </button>
+                <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-500 hover:to-violet-500 text-white font-semibold py-3.5 rounded-xl transition shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2">
+                    <i data-lucide="upload-cloud" class="w-5 h-5"></i> Upload Semua ke Draft
+                </button>
+            </form>
+        </div>
+
+            <!-- DRAFT -->
+            <div id="page-draft" class="page hidden">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-lg font-bold text-slate-800 dark:text-white flex items-center gap-2"><i data-lucide="file-text" class="w-5 h-5 text-amber-500"></i> Draft <span class="text-sm font-normal text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full" id="draft-count">(0)</span></h2>
+                </div>
+                <div id="draft-list-container"></div>
+            </div>
+
+            <!-- LOGBOOK -->
+            <div id="page-logbook" class="page hidden">
+                <h2 class="text-lg font-bold text-slate-800 dark:text-white flex items-center gap-2 mb-4"><i data-lucide="book-open" class="w-5 h-5 text-green-500"></i> Logbook</h2>
+                <div class="relative mb-4">
+                    <i data-lucide="search" class="absolute left-3 top-3 w-4 h-4 text-slate-400"></i>
+                    <input type="text" id="search-logbook" placeholder="Cari kegiatan, tempat, atau deskripsi..." class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-green-500 text-sm shadow-sm">
+                </div>
+                <button id="btn-sort-logbook" class="text-[10px] text-slate-400 dark:text-slate-500 mb-3 flex items-center gap-1 hover:text-blue-500 transition"><i data-lucide="arrow-up-down" class="w-3 h-3"></i> <span id="sort-logbook-text">Terlama ke Terbaru</span></button>
+                <div id="logbook-list-container"></div>
+            </div>
+
+            <!-- PENGATURAN -->
+            <div id="page-profil" class="page hidden flex flex-col">
+                <div id="setting-main-view">
+                    <h2 class="text-lg font-bold text-slate-800 dark:text-white flex items-center gap-2 mb-4"><i data-lucide="settings" class="w-5 h-5 text-slate-500"></i> Setting</h2>
+                    <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm mb-4 flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-violet-500 flex items-center justify-center text-white font-bold text-lg shadow-md" id="setting-avatar">A</div>
+                        <div class="flex-1 min-w-0">
+                            <p id="setting-user-name" class="font-semibold text-slate-800 dark:text-white truncate">User</p>
+                            <p id="setting-user-email" class="text-xs text-slate-500 dark:text-slate-400 truncate">email@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <button onclick="openSettingView('identitas')" class="w-full bg-white dark:bg-slate-800 p-3 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center gap-3 hover:border-blue-400 dark:hover:border-blue-500 transition text-left">
+                            <div class="w-9 h-9 rounded-lg bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400"><i data-lucide="graduation-cap" class="w-5 h-5"></i></div>
+                            <span class="text-sm font-medium text-slate-700 dark:text-slate-200">Identitas Mahasiswa</span>
+                        </button>
+                        <button onclick="openSettingView('edit-profil')" class="w-full bg-white dark:bg-slate-800 p-3 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center gap-3 hover:border-slate-400 dark:hover:border-slate-500 transition text-left">
+                            <div class="w-9 h-9 rounded-lg bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-400"><i data-lucide="user-pen" class="w-5 h-5"></i></div>
+                            <span class="text-sm font-medium text-slate-700 dark:text-slate-200">Ubah Nama Tampilan</span>
+                        </button>
+                        <button onclick="openSettingView('export-pdf')" class="w-full bg-white dark:bg-slate-800 p-3 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center gap-3 hover:border-emerald-400 dark:hover:border-emerald-500 transition text-left">
+                            <div class="w-9 h-9 rounded-lg bg-emerald-50 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400"><i data-lucide="file-down" class="w-5 h-5"></i></div>
+                            <span class="text-sm font-medium text-slate-700 dark:text-slate-200">Export Laporan PDF</span>
+                        </button>
+                        <button onclick="openSettingView('data')" class="w-full bg-white dark:bg-slate-800 p-3 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center gap-3 hover:border-red-400 dark:hover:border-red-500 transition text-left">
+                            <div class="w-9 h-9 rounded-lg bg-red-50 dark:bg-red-900/30 flex items-center justify-center text-red-600 dark:text-red-400"><i data-lucide="database" class="w-5 h-5"></i></div>
+                            <span class="text-sm font-medium text-slate-700 dark:text-slate-200">Manajemen Data</span>
+                        </button>
+                        <button onclick="openSettingView('panduan')" class="w-full bg-white dark:bg-slate-800 p-3 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center gap-3 hover:border-green-400 dark:hover:border-green-500 transition text-left">
+                            <div class="w-9 h-9 rounded-lg bg-green-50 dark:bg-green-900/30 flex items-center justify-center text-green-600 dark:text-green-400"><i data-lucide="book-open" class="w-5 h-5"></i></div>
+                            <span class="text-sm font-medium text-slate-700 dark:text-slate-200">Panduan Penggunaan</span>
+                        </button>
+                        <button onclick="openSettingView('faq')" class="w-full bg-white dark:bg-slate-800 p-3 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center gap-3 hover:border-amber-400 dark:hover:border-amber-500 transition text-left">
+                            <div class="w-9 h-9 rounded-lg bg-amber-50 dark:bg-amber-900/30 flex items-center justify-center text-amber-600 dark:text-amber-400"><i data-lucide="help-circle" class="w-5 h-5"></i></div>
+                            <span class="text-sm font-medium text-slate-700 dark:text-slate-200">FAQ</span>
+                        </button>
+                        <button onclick="openSettingView('feedback')" class="w-full bg-white dark:bg-slate-800 p-3 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center gap-3 hover:border-violet-400 dark:hover:border-violet-500 transition text-left">
+                            <div class="w-9 h-9 rounded-lg bg-violet-50 dark:bg-violet-900/30 flex items-center justify-center text-violet-600 dark:text-violet-400"><i data-lucide="message-square-plus" class="w-5 h-5"></i></div>
+                            <span class="text-sm font-medium text-slate-700 dark:text-slate-200">Feedback ke Developer</span>
+                        </button>
+                    </div>
+                    <div class="flex-grow"></div> 
+                    <div class="mt-10 pb-4 text-center border-t border-slate-200 dark:border-slate-700 pt-6">
+                        <h3 class="font-extrabold text-slate-800 dark:text-white text-base tracking-widest mb-3">AHTA STUDIO</h3>
+                        <div class="flex justify-center items-center gap-6 mb-4">
+                            <a href="https://instagram.com/_ahttaa" target="_blank" class="flex flex-col items-center gap-1 text-slate-400 hover:text-pink-500 transition-colors">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                                <span class="text-[10px]">Instagram</span>
+                            </a>
+                            <a href="https://tiktok.com/@ahtaaaa_" target="_blank" class="flex flex-col items-center gap-1 text-slate-400 hover:text-slate-100 dark:hover:text-white transition-colors">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+                                <span class="text-[10px]">TikTok</span>
+                            </a>
+                            <a href="mailto:ahsanatafsiro@gmail.com" class="flex flex-col items-center gap-1 text-slate-400 hover:text-red-500 transition-colors">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
+                                <span class="text-[10px]">Gmail</span>
+                            </a>
+                        </div>
+                        <p class="text-[10px] text-slate-400 dark:text-slate-500">&copy; 2026 TrekLog App. Developed by AHTA STUDIO</p>
+                    </div>
+                </div>
+
+                <div id="setting-identitas" class="hidden">
+                    <div class="flex items-center gap-3 mb-5"><button onclick="closeSettingView()" class="w-9 h-9 flex items-center justify-center rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition"><i data-lucide="arrow-left" class="w-5 h-5"></i></button><h2 class="text-lg font-bold text-slate-800 dark:text-white">Identitas Mahasiswa</h2></div>
+                    <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-3 mb-4">
+                        <p class="text-xs text-slate-500 dark:text-slate-400 bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg flex items-start gap-2"><i data-lucide="info" class="w-4 h-4 mt-0.5 shrink-0 text-blue-500"></i> Data ini akan tampil di cover laporan PDF. Wajib diisi sebelum export.</p>
+                        <div><label class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Nama Lengkap</label><input type="text" id="id-nama" class="mt-1 w-full p-2.5 rounded-lg border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"></div>
+                        <div><label class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">NIM</label><input type="text" id="id-nim" class="mt-1 w-full p-2.5 rounded-lg border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"></div>
+                        <div><label class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Program Studi</label><input type="text" id="id-prodi" placeholder="Contoh: Teknik Informatika" class="mt-1 w-full p-2.5 rounded-lg border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"></div>
+                        <div><label class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Fakultas</label><input type="text" id="id-fakultas" placeholder="Contoh: Fakultas Ilmu Komputer" class="mt-1 w-full p-2.5 rounded-lg border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"></div>
+                        <div><label class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Universitas</label><input type="text" id="id-universitas" placeholder="Contoh: Universitas Indonesia" class="mt-1 w-full p-2.5 rounded-lg border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"></div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div><label class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Semester</label><input type="text" id="id-semester" placeholder="Contoh: 5" class="mt-1 w-full p-2.5 rounded-lg border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"></div>
+                            <div><label class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">PKL Ke-</label><input type="text" id="id-pkl-ke" placeholder="Contoh: 1" class="mt-1 w-full p-2.5 rounded-lg border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"></div>
+                        </div>
+                    </div>
+                    <button onclick="saveIdentity()" class="w-full bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-500 hover:to-violet-500 text-white font-semibold py-3 rounded-xl transition shadow-lg shadow-blue-500/20">Simpan Identitas</button>
+                </div>
+
+                <div id="setting-edit-profil" class="hidden">
+                    <div class="flex items-center gap-3 mb-5"><button onclick="closeSettingView()" class="w-9 h-9 flex items-center justify-center rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition"><i data-lucide="arrow-left" class="w-5 h-5"></i></button><h2 class="text-lg font-bold text-slate-800 dark:text-white">Ubah Nama Tampilan</h2></div>
+                    <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
+                        <label class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Nama Tampilan</label>
+                        <input type="text" id="inp-edit-name" placeholder="Masukkan nama baru" class="mt-1 w-full p-2.5 rounded-lg border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                        <button onclick="saveProfileName()" class="mt-3 w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold py-2.5 rounded-lg transition text-sm">Simpan Nama</button>
+                    </div>
+                </div>
+
+                <div id="setting-export-pdf" class="hidden">
+                    <div class="flex items-center gap-3 mb-5"><button onclick="closeSettingView()" class="w-9 h-9 flex items-center justify-center rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition"><i data-lucide="arrow-left" class="w-5 h-5"></i></button><h2 class="text-lg font-bold text-slate-800 dark:text-white">Export Laporan PDF</h2></div>
+                    <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-3 mb-4">
+                        <p class="text-xs text-slate-500 dark:text-slate-400 bg-emerald-50 dark:bg-emerald-900/20 p-3 rounded-lg flex items-start gap-2"><i data-lucide="info" class="w-4 h-4 mt-0.5 shrink-0 text-emerald-500"></i> Data yang tampil di PDF hanya yang sudah dikonfirmasi. Pastikan identitas mahasiswa sudah lengkap di Setting.</p>
+                        <div><label class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Tahun Akademik</label><input type="text" id="pdf-tahun-akademik" placeholder="Contoh: 2025/2026" class="mt-1 w-full p-2.5 rounded-lg border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm"></div>
+                        <div><label class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Tempat PKL</label><input type="text" id="pdf-tempat" placeholder="Contoh: PT. Telkom Indonesia" class="mt-1 w-full p-2.5 rounded-lg border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm"></div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div><label class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Tanggal Mulai</label><input type="date" id="pdf-tgl-mulai" class="mt-1 w-full p-2.5 rounded-lg border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm"></div>
+                            <div><label class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Tanggal Selesai</label><input type="date" id="pdf-tgl-selesai" class="mt-1 w-full p-2.5 rounded-lg border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm"></div>
+                        </div>
+                    </div>
+                    <button onclick="generatePDF()" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-semibold py-3 rounded-xl transition shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2"><i data-lucide="file-down" class="w-5 h-5"></i> Generate & Download PDF</button>
+                </div>
+
+                <div id="setting-data" class="hidden">
+                    <div class="flex items-center gap-3 mb-5"><button onclick="closeSettingView()" class="w-9 h-9 flex items-center justify-center rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition"><i data-lucide="arrow-left" class="w-5 h-5"></i></button><h2 class="text-lg font-bold text-slate-800 dark:text-white">Manajemen Data</h2></div>
+                    <div class="space-y-3">
+                        <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm"><div class="flex items-center gap-3 mb-2"><div class="w-9 h-9 rounded-lg bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400"><i data-lucide="download" class="w-5 h-5"></i></div><div><p class="text-sm font-semibold text-slate-800 dark:text-white">Backup Data</p><p class="text-[10px] text-slate-500 dark:text-slate-400">Download semua data sebagai file JSON</p></div></div><button id="btn-backup-json" onclick="backupJSON()" class="w-full mt-2 bg-blue-600 hover:bg-blue-500 text-white font-medium py-2.5 rounded-lg transition text-sm">Backup Data (JSON)</button></div>
+                        <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm"><div class="flex items-center gap-3 mb-2"><div class="w-9 h-9 rounded-lg bg-amber-50 dark:bg-amber-900/30 flex items-center justify-center text-amber-600 dark:text-amber-400"><i data-lucide="upload" class="w-5 h-5"></i></div><div><p class="text-sm font-semibold text-slate-800 dark:text-white">Restore Data</p><p class="text-[10px] text-slate-500 dark:text-slate-400">Pulihkan data dari file backup JSON</p></div></div><input type="file" id="restore-file-input" accept=".json" class="hidden" onchange="handleRestoreFile(event)"><button id="btn-restore-json" onclick="document.getElementById('restore-file-input').click()" class="w-full mt-2 bg-amber-600 hover:bg-amber-500 text-white font-medium py-2.5 rounded-lg transition text-sm">Restore Data (JSON)</button></div>
+                        <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-red-200 dark:border-red-900/50 shadow-sm"><div class="flex items-center gap-3 mb-2"><div class="w-9 h-9 rounded-lg bg-red-50 dark:bg-red-900/30 flex items-center justify-center text-red-600 dark:text-red-400"><i data-lucide="trash-2" class="w-5 h-5"></i></div><div><p class="text-sm font-semibold text-slate-800 dark:text-white">Hapus Semua Data</p><p class="text-[10px] text-red-500 dark:text-red-400">Tidak dapat dibatalkan! Backup dulu sebelum menghapus.</p></div></div><button id="btn-hapus-semua" onclick="hapusSemuaData()" class="w-full mt-2 bg-red-600 hover:bg-red-500 text-white font-medium py-2.5 rounded-lg transition text-sm">Hapus Semua Data</button></div>
+                    </div>
+                </div>
+
+                <div id="setting-panduan" class="hidden">
+                    <div class="flex items-center gap-3 mb-5"><button onclick="closeSettingView()" class="w-9 h-9 flex items-center justify-center rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition"><i data-lucide="arrow-left" class="w-5 h-5"></i></button><h2 class="text-lg font-bold text-slate-800 dark:text-white">Panduan Penggunaan</h2></div>
+                    <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-3 text-sm text-slate-600 dark:text-slate-300">
+                        <p><span class="font-bold text-blue-500">1.</span> Buka aplikasi TrekLog dan lakukan Login/Registrasi terlebih dahulu.</p>
+                        <p><span class="font-bold text-blue-500">2.</span> Lengkapi <span class="font-semibold">Identitas Mahasiswa</span> di menu Setting.</p>
+                        <p><span class="font-bold text-blue-500">3.</span> Untuk mencatat kegiatan, tekan tombol <span class="bg-slate-100 dark:bg-slate-700 px-1 rounded text-xs">+</span> di halaman utama.</p>
+                        <p><span class="font-bold text-blue-500">4.</span> Isi form kegiatan, lampirkan bukti foto, lalu tekan <span class="font-semibold">"Upload ke Draft"</span>.</p>
+                        <p><span class="font-bold text-blue-500">5.</span> Cek kembali data di tab <span class="font-semibold">Draft</span>. Jika sudah yakin benar, tekan "Konfirmasi".</p>
+                        <p><span class="font-bold text-blue-500">6.</span> Data yang sudah dikonfirmasi akan berpindah ke tab <span class="font-semibold">Logbook</span>.</p>
+                        <p><span class="font-bold text-blue-500">7.</span> Setelah selesai PKL, buka <span class="font-semibold">Setting > Export Laporan PDF</span> untuk mengunduh laporan lengkap.</p>
+                    </div>
+                </div>
+
+                <div id="setting-faq" class="hidden">
+                    <div class="flex items-center gap-3 mb-5"><button onclick="closeSettingView()" class="w-9 h-9 flex items-center justify-center rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition"><i data-lucide="arrow-left" class="w-5 h-5"></i></button><h2 class="text-lg font-bold text-slate-800 dark:text-white">FAQ</h2></div>
+                    <div class="space-y-3">
+                        <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm"><p class="font-semibold text-slate-800 dark:text-white text-sm mb-1">Apakah data saya aman?</p><p class="text-xs text-slate-500 dark:text-slate-400">Ya, data tersimpan aman di cloud dan hanya bisa diakses menggunakan akun Anda sendiri.</p></div>
+                        <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm"><p class="font-semibold text-slate-800 dark:text-white text-sm mb-1">Saya salah input data yang sudah dikonfirmasi?</p><p class="text-xs text-slate-500 dark:text-slate-400">Data yang sudah dikonfirmasi tidak dapat diubah. Tambahkan data koreksi baru melalui form Input.</p></div>
+                        <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm"><p class="font-semibold text-slate-800 dark:text-white text-sm mb-1">Apa fungsi Backup & Restore?</p><p class="text-xs text-slate-500 dark:text-slate-400">Backup mendownload semua data sebagai file JSON. Restore memulihkan data dari file backup tersebut.</p></div>
+                    </div>
+                </div>
+
+                <div id="setting-feedback" class="hidden">
+                    <div class="flex items-center gap-3 mb-5"><button onclick="closeSettingView()" class="w-9 h-9 flex items-center justify-center rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition"><i data-lucide="arrow-left" class="w-5 h-5"></i></button><h2 class="text-lg font-bold text-slate-800 dark:text-white">Feedback</h2></div>
+                    <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-3">
+                        <div><label class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Nama</label><input type="text" id="fb-name" class="mt-1 w-full p-2.5 rounded-lg border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-violet-500 text-sm"></div>
+                        <div><label class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Pesan / Saran / Laporan Bug</label><textarea id="fb-message" rows="4" placeholder="Tuliskan pesan Anda di sini..." class="mt-1 w-full p-2.5 rounded-lg border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-violet-500 text-sm resize-none"></textarea></div>
+                        <button id="btn-send-feedback" onclick="sendFeedback()" class="w-full bg-violet-600 hover:bg-violet-500 text-white font-semibold py-2.5 rounded-lg transition text-sm">Kirim Feedback</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <button id="fab-input" class="fixed bottom-24 right-1/2 translate-x-[9.5rem] w-14 h-14 bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-500 hover:to-violet-500 text-white rounded-2xl shadow-xl shadow-blue-500/30 flex items-center justify-center z-20 transition-all active:scale-90 hover:scale-105"><i data-lucide="plus" class="w-7 h-7"></i></button>
+
+        <nav class="absolute bottom-0 w-full bg-white dark:bg-slate-800/95 backdrop-blur-sm border-t border-slate-200 dark:border-slate-700 flex justify-around py-2 z-30">
+            <button class="nav-btn active flex flex-col items-center text-[10px] text-blue-600 dark:text-blue-400 px-3 py-1 gap-0.5" data-target="page-home"><i data-lucide="home" class="w-5 h-5"></i> Home</button>
+            <button class="nav-btn flex flex-col items-center text-[10px] text-slate-400 dark:text-slate-500 px-3 py-1 gap-0.5" data-target="page-draft"><i data-lucide="file-edit" class="w-5 h-5"></i> Draft</button>
+            <button class="nav-btn flex flex-col items-center text-[10px] text-slate-400 dark:text-slate-500 px-3 py-1 gap-0.5" data-target="page-logbook"><i data-lucide="book-open" class="w-5 h-5"></i> Logbook</button>
+            <button class="nav-btn flex flex-col items-center text-[10px] text-slate-400 dark:text-slate-500 px-3 py-1 gap-0.5" data-target="page-profil"><i data-lucide="settings" class="w-5 h-5"></i> Setting</button>
+        </nav>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
